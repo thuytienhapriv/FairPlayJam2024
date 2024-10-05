@@ -7,11 +7,14 @@ public class RainArea : MonoBehaviour
     public enum colors { red, blue };
     public colors rainColor;
 
-    [SerializeField] private GameObject FillBar;
+    [SerializeField] private GameObject fillBar;
+    [SerializeField] private GameObject player;
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        FillBar.GetComponent<FillBarScript>().FillWithWater(rainColor.ToString());
+        if (player.GetComponent<PlayerMovement2>().holdsUmbrella == false) { return; }
+        fillBar.GetComponent<FillBarScript>().FillWithWater(rainColor.ToString());
     }
 
 
