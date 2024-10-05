@@ -32,6 +32,7 @@ public class PlayerMovement2 : MonoBehaviour
     public Vector2 direction;
     Vector2 groundCheckPoint;
     Animator anim;
+    public GameObject cam;
 
     void Start()
     {
@@ -118,6 +119,9 @@ public class PlayerMovement2 : MonoBehaviour
 
     IEnumerator Spin()
     {
+        cam.GetComponent<CameraController>().CameraShake();
+
+        // will take 0.5f
         for (int i = 0; i < 50; i++)
         {
             gameObject.transform.Rotate(0, 0, -7.2f);
