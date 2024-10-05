@@ -9,6 +9,8 @@ using static UnityEditor.VersionControl.Asset;
 public class PlayerMovement2 : MonoBehaviour
 {
     Vector2 direction;
+    Vector2 groundCheckPoint;
+    public GameObject groundCheckPointObject;
 
     public float moveSpeed;
     public float acceleration;
@@ -27,6 +29,7 @@ public class PlayerMovement2 : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Time.timeScale = 1.0f;
+        groundCheckPoint = groundCheckPointObject.transform.position;
     }
 
     void Update()
@@ -42,13 +45,14 @@ public class PlayerMovement2 : MonoBehaviour
         
         else { direction = Vector2.zero; }
 
-        if (Input.GetKeyDown(KeyCode.W)) { Jump(); ; Debug.Log("jump"); }
+        if (Input.GetKeyDown(KeyCode.W)) { Jump();  }
     }
 
     private void Jump()
     {
         if (CheckIfGrounded() == false) { return; }
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        Debug.Log("jump");
     }
 
     private bool CheckIfGrounded()
@@ -57,10 +61,14 @@ public class PlayerMovement2 : MonoBehaviour
 
         foreach (var plat in GameObject.FindGameObjectsWithTag("GroundAndPlatforms"))
         {
-            if (Physics2D.IsTouching(GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //if is touching
+            if (Physics2D.IsTouching(groundCheckPointObject.GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //if is touching
             {
                 return true;
             }
+            /*if (Physics2D.OverlapBox(groundCheckPoint, plat.GetComponent<Collider2D>().bounds.center - plat.GetComponent<Collider2D>().bounds.min, 0))
+            {
+                return true;
+            }*/
         }
 
         return false;
