@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static PlayerMovement;
@@ -13,7 +14,7 @@ public class PlayerMovement2 : MonoBehaviour
     public float acceleration;
     public float decelaration;
 
-    public float jumpSpeed;
+    public float jumpForce;
     public float jumpMultiplier;
     public float fallMultiplier;
         
@@ -46,20 +47,23 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void Jump()
     {
-        rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+        if (CheckIfGrounded() == false) { return; }
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
-    private void CheckIfGrounded()
+    private bool CheckIfGrounded()
     {
         Physics2D.SyncTransforms();
 
         foreach (var plat in GameObject.FindGameObjectsWithTag("GroundAndPlatforms"))
         {
-            if (Physics2D.IsTouching(GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //
+            if (Physics2D.IsTouching(GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //if is touching
             {
-
+                return true;
             }
         }
+
+        return false;
     }
 
     private void FixedUpdate()
