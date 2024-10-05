@@ -5,7 +5,20 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Umbrella : MonoBehaviour
 {
-    private bool isHeld;
+    public void IsHeld()
+    {
+        gameObject.GetComponent<Collider2D>().enabled = true;
+    }
+
+    public void IsDown()
+    {
+        gameObject.GetComponent<Collider2D>().enabled = false;
+
+    }
+
+
+
+    /*private bool isHeld;
     [SerializeField] GameObject player;
     private Vector2 distance;
 
@@ -30,5 +43,5 @@ public class Umbrella : MonoBehaviour
             transform.RotateAround(player.transform.position, Vector3.forward, -90);
         
         }
-    }
+    }*/
 }

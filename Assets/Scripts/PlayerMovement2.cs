@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static PlayerMovement;
 using static UnityEditor.VersionControl.Asset;
 
@@ -11,6 +12,8 @@ public class PlayerMovement2 : MonoBehaviour
     Vector2 direction;
     Vector2 groundCheckPoint;
     public GameObject groundCheckPointObject;
+    public GameObject umbrella;
+    public GameObject fillBar;
 
     public float moveSpeed;
     public float acceleration;
@@ -23,6 +26,7 @@ public class PlayerMovement2 : MonoBehaviour
     public float velPower;
     public float frictionAmount;
 
+    public bool holdsUmbrella;
     Rigidbody2D rb;
 
     void Start()
@@ -30,6 +34,7 @@ public class PlayerMovement2 : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         Time.timeScale = 1.0f;
         groundCheckPoint = groundCheckPointObject.transform.position;
+        holdsUmbrella = true;
     }
 
     void Update()
@@ -46,6 +51,15 @@ public class PlayerMovement2 : MonoBehaviour
         else { direction = Vector2.zero; }
 
         if (Input.GetKeyDown(KeyCode.W)) { Jump();  }
+        if (Input.GetKeyDown(KeyCode.E)) { Umbrella(); }
+        if (Input.GetKeyDown(KeyCode.Q)) { HeadBang(); }
+
+    }
+
+    private void Umbrella()
+    {
+        if (holdsUmbrella == true) { holdsUmbrella = false; umbrella.GetComponent<Umbrella>().IsDown(); }
+        else { holdsUmbrella = true; umbrella.GetComponent<Umbrella>().IsHeld(); } 
     }
 
     private void Jump()
@@ -55,13 +69,30 @@ public class PlayerMovement2 : MonoBehaviour
         Debug.Log("jump");
     }
 
+    private void HeadBang()
+    {
+        StartCoroutine(Spin());
+    }
+
+    IEnumerator Spin()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            gameObject.transform.Rotate(0, 0, -3.6f);
+            fillBar.GetComponent<FillBarScript>().PourOutWater();
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
     private bool CheckIfGrounded()
     {
         Physics2D.SyncTransforms();
 
         foreach (var plat in GameObject.FindGameObjectsWithTag("GroundAndPlatforms"))
         {
-            if (Physics2D.IsTouching(groundCheckPointObject.GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //if is touching
+            if (Physics2D.IsTouching(
+                groundCheckPointObject.GetComponent<Collider2D>(), 
+                plat.GetComponent<Collider2D>())) //if is touching
             {
                 return true;
             }

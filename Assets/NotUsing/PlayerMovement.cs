@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
     private void Umbrella()
     {
         if (isHolding == false) { isHolding = true;  } else { isHolding = false; }
-        umbrella.GetComponent<Umbrella>().Position();
+        //umbrella.GetComponent<Umbrella>().Position();
         return;
     }
 
