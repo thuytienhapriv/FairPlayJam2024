@@ -13,7 +13,9 @@ public class RainArea : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (player.GetComponent<PlayerMovement2>().holdsUmbrella == false) { return; }
+        // if holds an umbrella, can't fill water
+        if (player.GetComponent<PlayerMovement2>().holdsUmbrella == false) { return; } 
+        
         fillBar.GetComponent<FillBarScript>().FillWithWater(rainColor.ToString());
     }
 

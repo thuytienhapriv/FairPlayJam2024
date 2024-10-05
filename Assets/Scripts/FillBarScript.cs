@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class FillBarScript : MonoBehaviour
 {
     GameObject rainArea;
+    public string myColor;
     [SerializeField] float changeRate;
+    [SerializeField] GameObject player;
+
     Color32 myRed;
     Color32 myBlue;
-    public string myColor;
 
     private void Start()
     {
@@ -21,13 +23,25 @@ public class FillBarScript : MonoBehaviour
     public void FillWithWater(string rainColor)
     {
         gameObject.GetComponent<Image>().fillAmount += changeRate;
+        player.GetComponent<PlayerMovement2>().waterVolume += changeRate;
 
-        if (rainColor == "blue") { gameObject.GetComponent<Image>().color = myBlue; myColor = "blue"; }
-        else if (rainColor == "red") { gameObject.GetComponent<Image>().color = myRed; myColor = "red"; }
+        if (rainColor == "blue") 
+        { 
+            gameObject.GetComponent<Image>().color = myBlue;
+            myColor = "blue";
+
+        } 
+        else if (rainColor == "red") 
+        { 
+            gameObject.GetComponent<Image>().color = myRed; 
+            myColor = "red"; 
+        }
+
+        player.GetComponent<PlayerMovement2>().SetColour(myColor);
     }
 
-    public void PourOutWater()
+    public void PourOutWater(float pourSpeed)
     {
-        gameObject.GetComponent<Image>().fillAmount -= changeRate;
+        gameObject.GetComponent<Image>().fillAmount -= pourSpeed;
     }
 }

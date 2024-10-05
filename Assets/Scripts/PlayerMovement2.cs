@@ -9,11 +9,13 @@ using static UnityEditor.VersionControl.Asset;
 
 public class PlayerMovement2 : MonoBehaviour
 {
-    Vector2 direction;
-    Vector2 groundCheckPoint;
     public GameObject groundCheckPointObject;
     public GameObject umbrella;
     public GameObject fillBar;
+    public bool holdsUmbrella;
+    public enum colors { red, blue, none};
+    public colors fillColour;
+    public float waterVolume;
 
     public float moveSpeed;
     public float acceleration;
@@ -26,8 +28,10 @@ public class PlayerMovement2 : MonoBehaviour
     public float velPower;
     public float frictionAmount;
 
-    public bool holdsUmbrella;
     Rigidbody2D rb;
+    public Vector2 direction;
+    Vector2 groundCheckPoint;
+    Animator anim;
 
     void Start()
     {
@@ -35,12 +39,26 @@ public class PlayerMovement2 : MonoBehaviour
         Time.timeScale = 1.0f;
         groundCheckPoint = groundCheckPointObject.transform.position;
         holdsUmbrella = true;
+        anim = gameObject.GetComponent<Animator>();
+    }
+
+    public void SetColour(string colour)
+    {
+        if (colour == colors.red.ToString())
+        {
+            fillColour = colors.red;
+        }
+        else if (colour == colors.blue.ToString())
+        {
+            fillColour = colors.blue;
+        }
     }
 
     void Update()
     {
         MoveAndJump();        
-        ControlJumpSpeed();        
+        ControlJumpSpeed();
+        ChangeAnimation();
     }
 
     private void MoveAndJump()
@@ -54,6 +72,31 @@ public class PlayerMovement2 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) { Umbrella(); }
         if (Input.GetKeyDown(KeyCode.Q)) { HeadBang(); }
 
+        waterVolume = Mathf.Clamp(waterVolume, 0, 99);
+    }
+
+    private void ChangeAnimation()
+    {
+        // flip sprite
+
+        if (direction.x < 0)
+        {
+            gameObject.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z));
+        } else if (direction.x > 0)
+        {
+            gameObject.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z));
+        }
+
+        if (direction.x != 0) { 
+            anim.SetBool("walking", true);
+        } else
+        {
+            anim.SetBool("walking", false);
+        }
+
+        //Debug.Log(direction.x);
+        
+
     }
 
     private void Umbrella()
@@ -66,7 +109,6 @@ public class PlayerMovement2 : MonoBehaviour
     {
         if (CheckIfGrounded() == false) { return; }
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        Debug.Log("jump");
     }
 
     private void HeadBang()
@@ -76,10 +118,11 @@ public class PlayerMovement2 : MonoBehaviour
 
     IEnumerator Spin()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
         {
-            gameObject.transform.Rotate(0, 0, -3.6f);
-            fillBar.GetComponent<FillBarScript>().PourOutWater();
+            gameObject.transform.Rotate(0, 0, -7.2f);
+            fillBar.GetComponent<FillBarScript>().PourOutWater(2);
+            waterVolume -= 2;
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -111,6 +154,7 @@ public class PlayerMovement2 : MonoBehaviour
         float speedDif = targetSpeed - rb.velocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decelaration;
         float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+
 
         rb.AddForce(movement * Vector2.right);
     }
