@@ -16,7 +16,7 @@ public class Umbrella : MonoBehaviour
 
     void Update()
     {
-        isHeld = player.GetComponent<PlayerMovement>().isHolding;
+        //isHeld = player.GetComponent<PlayerMovement2>().isHolding;
 
     }
 
