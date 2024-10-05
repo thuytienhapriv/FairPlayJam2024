@@ -7,40 +7,59 @@ using static UnityEditor.VersionControl.Asset;
 
 public class PlayerMovement2 : MonoBehaviour
 {
-    public float jumpVelocity;
-    public float jumpMultiplier;
-    public float fallMultiplier;
+    Vector2 direction;
+
     public float moveSpeed;
     public float acceleration;
     public float decelaration;
+
+    public float jumpSpeed;
+    public float jumpMultiplier;
+    public float fallMultiplier;
+        
     public float velPower;
     public float frictionAmount;
 
-    Vector2 direction;
     Rigidbody2D rb;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Time.timeScale = 1.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("jump");
-            GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpVelocity;
-        }
+        MoveAndJump();        
+        ControlJumpSpeed();        
+    }
 
+    private void MoveAndJump()
+    {
         if (Input.GetKey(KeyCode.D)) { direction = Vector2.right; }
         else if (Input.GetKey(KeyCode.A)) { direction = Vector2.left; }
-        else { direction = Vector2.zero; }
-        ControlJumpSpeed();
-
-        //CheckFriction();
         
+        else { direction = Vector2.zero; }
+
+        if (Input.GetKeyDown(KeyCode.W)) { Jump(); ; Debug.Log("jump"); }
+    }
+
+    private void Jump()
+    {
+        rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+    }
+
+    private void CheckIfGrounded()
+    {
+        Physics2D.SyncTransforms();
+
+        foreach (var plat in GameObject.FindGameObjectsWithTag("GroundAndPlatforms"))
+        {
+            if (Physics2D.IsTouching(GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //
+            {
+
+            }
+        }
     }
 
     private void FixedUpdate()
