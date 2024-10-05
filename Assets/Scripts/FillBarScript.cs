@@ -10,6 +10,7 @@ public class FillBarScript : MonoBehaviour
     public float colorMeter; // 1 - 33 blue, 34 - 66 purple, 67 - 99 red
     Color32 myRed;
     Color32 myBlue;
+    public string myColor;
 
     private void Start()
     {
@@ -23,8 +24,8 @@ public class FillBarScript : MonoBehaviour
     {
         gameObject.GetComponent<Image>().fillAmount += changeRate;
 
-        if (rainColor == "blue") { gameObject.GetComponent<Image>().color = myBlue; }
-        else if (rainColor == "red") { gameObject.GetComponent<Image>().color = myRed; }
+        if (rainColor == "blue") { gameObject.GetComponent<Image>().color = myBlue; myColor = "blue"; }
+        else if (rainColor == "red") { gameObject.GetComponent<Image>().color = myRed; myColor = "red"; }
     }
 
     public void PourOutWater(string rainColor)

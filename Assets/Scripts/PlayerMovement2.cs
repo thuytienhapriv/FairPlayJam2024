@@ -61,7 +61,9 @@ public class PlayerMovement2 : MonoBehaviour
 
         foreach (var plat in GameObject.FindGameObjectsWithTag("GroundAndPlatforms"))
         {
-            if (Physics2D.IsTouching(groundCheckPointObject.GetComponent<Collider2D>(), plat.GetComponent<Collider2D>())) //if is touching
+            if (Physics2D.IsTouching(
+                groundCheckPointObject.GetComponent<Collider2D>(), 
+                plat.GetComponent<Collider2D>())) //if is touching
             {
                 return true;
             }
