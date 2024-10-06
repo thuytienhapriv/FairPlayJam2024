@@ -34,12 +34,15 @@ public class PlayerMovement2 : MonoBehaviour
     Animator anim;
     public GameObject cam;
 
+    public bool isPouring;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Time.timeScale = 1.0f;
         groundCheckPoint = groundCheckPointObject.transform.position;
         holdsUmbrella = true;
+        isPouring = false;
         anim = gameObject.GetComponent<Animator>();
     }
 
@@ -131,6 +134,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void HeadBang()
     {
+        isPouring = true;
         StartCoroutine(Spin());
     }
 
@@ -146,6 +150,7 @@ public class PlayerMovement2 : MonoBehaviour
             waterVolume -= 2;
             yield return new WaitForSeconds(0.01f);
         }
+        isPouring = false;
     }
 
     private bool CheckIfGrounded()
