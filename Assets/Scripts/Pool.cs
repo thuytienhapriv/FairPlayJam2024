@@ -20,13 +20,16 @@ public class Pool : MonoBehaviour
         poolLight.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if ((poolColor == colors.red && player.GetComponent<PlayerMovement2>().fillColour.ToString() == "blue") || (poolColor == colors.blue && player.GetComponent<PlayerMovement2>().fillColour.ToString() == "red"))
         {
-            isPurple = true;
-            poolLight.SetActive(true);
-            lastBarrier.GetComponent<LastBarrier>().AddPool();
+            if (player.GetComponent<PlayerMovement2>().isPouring == true)
+            {
+                isPurple = true;
+                poolLight.SetActive(true);
+                lastBarrier.GetComponent<LastBarrier>().AddPool();
+            } 
         }
     }
 }
