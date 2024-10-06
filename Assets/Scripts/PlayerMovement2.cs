@@ -158,7 +158,7 @@ public class PlayerMovement2 : MonoBehaviour
                 groundCheckPointObject.GetComponent<Collider2D>(), 
                 plat.GetComponent<Collider2D>())) //if is touching
             {
-                Debug.Log("landed");
+                //Debug.Log("landed");
                 return true;
             }
             /*if (Physics2D.OverlapBox(groundCheckPoint, plat.GetComponent<Collider2D>().bounds.center - plat.GetComponent<Collider2D>().bounds.min, 0))
