@@ -88,28 +88,45 @@ public class PlayerMovement2 : MonoBehaviour
             gameObject.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z));
         }
 
+
+        // walking
+
         if (direction.x != 0) { 
-            anim.SetBool("walking", true);
+            anim.SetBool("walking", true); // goes to walking with umbrella
         } else
         {
-            anim.SetBool("walking", false);
+            anim.SetBool("walking", false); // goes to idle with umbrella
         }
-
-        //Debug.Log(direction.x);
-        
 
     }
 
     private void Umbrella()
     {
-        if (holdsUmbrella == true) { holdsUmbrella = false; umbrella.GetComponent<Umbrella>().IsDown(); }
-        else { holdsUmbrella = true; umbrella.GetComponent<Umbrella>().IsHeld(); } 
+        if (holdsUmbrella == true) { // closing
+            holdsUmbrella = false; 
+            umbrella.GetComponent<Umbrella>().IsDown(); 
+            anim.SetBool("closedUmbrella", true);
+        }
+        else 
+        { // opening
+            holdsUmbrella = true; 
+            umbrella.GetComponent<Umbrella>().IsHeld();
+            anim.SetBool("closedUmbrella", false);
+        }
     }
 
     private void Jump()
     {
         if (CheckIfGrounded() == false) { return; }
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        anim.SetBool("jumping", true);
+        StartCoroutine(CountJumpTime());
+    }
+
+    IEnumerator CountJumpTime()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        anim.SetBool("jumping", false);
     }
 
     private void HeadBang()
@@ -141,6 +158,7 @@ public class PlayerMovement2 : MonoBehaviour
                 groundCheckPointObject.GetComponent<Collider2D>(), 
                 plat.GetComponent<Collider2D>())) //if is touching
             {
+                Debug.Log("landed");
                 return true;
             }
             /*if (Physics2D.OverlapBox(groundCheckPoint, plat.GetComponent<Collider2D>().bounds.center - plat.GetComponent<Collider2D>().bounds.min, 0))
