@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Space)) { CameraShake(); }
+        //if (Input.GetKeyDown(KeyCode.Space)) { CameraShake(); }
 
 
         /*CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();

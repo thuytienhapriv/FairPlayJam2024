@@ -73,7 +73,7 @@ public class PlayerMovement2 : MonoBehaviour
         
         else { direction = Vector2.zero; }
 
-        if (Input.GetKeyDown(KeyCode.W)) { Jump();  }
+        if (Input.GetKeyDown(KeyCode.Space)) { Jump();  }
         if (Input.GetKeyDown(KeyCode.E)) { Umbrella(); }
         if (Input.GetKeyDown(KeyCode.Q)) { HeadBang(); }
 
