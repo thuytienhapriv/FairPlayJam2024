@@ -10644,7 +10644,7 @@ GameObject:
   - component: {fileID: 218039012}
   m_Layer: 0
   m_Name: layer_2
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10671,7 +10671,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218039010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f72a37ca659cde940ba48e4c229d6461, type: 3}
   m_Name: 
@@ -28647,8 +28647,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollAxis: 0
-  autoScroll: 0
-  speed: 0
+  autoScroll: 1
+  speed: 5
 --- !u!114 &716140386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33935,9 +33935,10 @@ GameObject:
   - component: {fileID: 767069265}
   - component: {fileID: 767069267}
   - component: {fileID: 767069266}
+  - component: {fileID: 767069268}
   m_Layer: 0
   m_Name: Layer_1
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33964,7 +33965,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767069264}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f72a37ca659cde940ba48e4c229d6461, type: 3}
   m_Name: 
@@ -34033,6 +34034,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &767069268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767069264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9f455b5cfb6fc44bab089f98d36d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollAxis: 0
+  autoScroll: 0
+  speed: 0
 --- !u!1 &811565967
 GameObject:
   m_ObjectHideFlags: 0
@@ -34081,7 +34097,7 @@ GameObject:
   - component: {fileID: 850240512}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53825,7 +53841,7 @@ GameObject:
   - component: {fileID: 979438923}
   m_Layer: 0
   m_Name: layer_3
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53852,7 +53868,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979438921}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f72a37ca659cde940ba48e4c229d6461, type: 3}
   m_Name: 
