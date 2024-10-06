@@ -14,8 +14,4 @@ public class StartToGameScene : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void ChangeSceneToEnd()
-    {
-        SceneManager.LoadScene(2);
-    }
 }

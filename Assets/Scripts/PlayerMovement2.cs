@@ -24,7 +24,8 @@ public class PlayerMovement2 : MonoBehaviour
     public float jumpForce;
     public float jumpMultiplier;
     public float fallMultiplier;
-        
+    public float umbrellaFallMultiplier;
+
     public float velPower;
     public float frictionAmount;
 
@@ -194,13 +195,21 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void ControlJumpSpeed()
     {
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0) // falling
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier) * Time.deltaTime;
+            if (holdsUmbrella == false)
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier) * Time.deltaTime;
+            }else 
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (umbrellaFallMultiplier) * Time.deltaTime;
+
+            }
         }
         else if ((rb.velocity.y > 0 && !Input.GetKeyDown(KeyCode.W)))
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (jumpMultiplier) * Time.deltaTime;
+            
         }
     }
 }
