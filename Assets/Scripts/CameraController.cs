@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cinemachine;
-using UnityEngine.Windows.WebCam;
+//using UnityEngine.Windows.WebCam;
 using System;
 using UnityEditor;
 

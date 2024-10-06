@@ -1205,7 +1205,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0fad808cd7815c949b892860b9f1f2c9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8301887, g: 0.5666771, b: 0.30992216, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1239,6 +1239,7 @@ MonoBehaviour:
   jumpForce: 25
   jumpMultiplier: 9
   fallMultiplier: 12
+  umbrellaFallMultiplier: 0
   velPower: 1.2
   frictionAmount: 0
   direction: {x: 0, y: 0}
